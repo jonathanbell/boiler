@@ -1,2 +1,2 @@
-# example-module
-My boilerplate Drupal module ...it's not done yet.
+# Jboil
+My Drupal boilerplate module ...it's not done yet.
