@@ -1,0 +1,8 @@
+name = Boiler Example Module
+description = A starter module for Drupal. Do not use this as a module itself, use its code to get started making your own module. 
+core = 7.x
+version = 7.x-0.1-dev
+configure = admin/config/boiler
+# package = Boiler
+# dependencies[] = jquery_update
+# dependencies[] = date

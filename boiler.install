@@ -1,0 +1,91 @@
+<?php
+/**
+ * @file (Boiler: Example Drupal Module Installation)
+ * NOTE: Do not use/install this module. It is intended as a starter module.
+ */
+
+/**
+ * Implements hook_install()
+ */
+function boiler_install() {
+
+  // t() might be unavailable at install.
+  $t = get_t();
+
+  // Initial variables. 
+  variable_set('boiler_varibale', 'A value of some sort.');
+
+  // // Create custom fields in prepartation for attaching them as an instance to a content type.
+  // $fields = array();
+
+  // $fields['boiler_totalcountexample'] = array(
+  //   'field_name' => 'boiler_unit_count',
+  //   'type' => 'number_integer',
+  //   'cardinality' => 1, 
+  //   'settings' => array(
+  //     'max_length' => 5,
+  //   ),
+  // );
+
+  // // Set the fields from the array above by looping through them and calling field_create_field on each.
+  // foreach ($fields as $field) {
+  //   field_create_field($field);
+  // }
+
+  // // Create field instances.
+  // $instances = array();
+
+  // $instances['boiler_totalcountexample'] = array(
+  //   'field_name' => 'boiler',
+  //   'label' => $t('An example field lable'),
+  //   'description' => $t('An example description'),
+  //   'widget' => array(
+  //     'type' => 'text_textfield',
+  //   ),
+  //   'optional' => true,
+  //   'settings' => array(
+  //     'text_processing' => 0,
+  //   ),
+  // );
+
+  // foreach ($instances as $instance) {
+  //   $instance['entity_type'] = 'node';
+  //   $instance['bundle'] = 'windfarm';
+  //   field_create_instance($instance);
+  // }
+
+  // Give user feedback at install.
+  drupal_set_message($t('Boiler variables and fields set. Boiler installed.'));
+
+} // boiler_install()
+
+/**
+ * Implements hook_uninstall()
+ */
+function boiler_uninstall() {
+
+  // t() may be unavailable during uninstall.
+  $t = get_t();
+
+  variable_del('boiler_varibale');
+
+  // field_delete_field('boiler');
+
+  // Purge old fields.
+  field_purge_batch(1000);
+
+  // Remove all of these tables.
+  $remove_tables = array (
+    'boiler',
+  );
+
+  foreach ($remove_tables as $table) {
+    if (db_table_exists($table)) {
+      db_drop_table($table);
+    }
+  }
+
+  // Give user feedback at uninstall.
+  drupal_set_message($t('Boiler feilds and variables removed.'));
+
+} // boiler_uninstall()

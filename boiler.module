@@ -1,0 +1,122 @@
+<?php
+
+/**
+ * @file(boiler.module)
+ * NOTE: This is an example module with code ideas and tricks to be used as a
+ * boilerplate codebase for starting your own modules in Drupal 7. Do not 
+ * this module on its own. 
+ */
+
+/**
+ * Implements hook_permission()
+ */
+function boiler_permission() {
+  return array (
+    'administer_boiler' => array (
+      'title' => t('Administer the Boiler module'),
+      // 'description' => t(''),
+    ),
+  );
+} // boiler_permission()
+
+/**
+ * Implements hook_menu()
+ */
+function boiler_menu() {
+  return array (
+    // the admin config page for the module
+    'admin/config/boiler' => array (
+      'title' => t('boiler'),
+      'description' => t('Administer the Boiler Module'),
+      'access arguments' => array ('administer_boiler'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array ('boiler_admin_settings_form'),
+    ),
+  );
+} // hook_menu()
+
+/**
+ * An example helper function that can be called from other functions. 
+ * @return bool Returns true all the time.
+ */
+function _example_helper_function() {
+
+  // Your PHP stuff here... 
+
+  return TRUE;
+
+} // _reset_boiler_user_permissions()
+
+/**
+ * Implements hook_form()
+ * The admin form in Drupal admin area. 
+ */
+function boiler_admin_settings_form($node, &$form_state) {
+
+  $form = array();
+
+  $form['overview'] = array(
+    '#markup' => '<p>Configurations and settings used in the Boiler module.</p>',
+  );
+
+  $form['user_permissions_reset'] = array(
+    '#title' => 'Example Fieldset Title',
+    '#type' => 'fieldset',
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['user_permissions_reset']['boiler_varibale'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Example Title'),
+    '#default_value' => variable_get('boiler_varibale'),
+    '#description' => t('Description here.'),
+  );
+
+  return system_settings_form($form);
+
+} // boiler_admin_settings_form()
+
+/**
+ * Validates some of the form values.
+ */
+function boiler_admin_settings_form_validate($form, &$form_state) {
+  $get_users = explode(',', str_replace(' ', '', $form_state['values']['boiler_varibale']));
+  foreach($get_users as $fetched_user) {
+    if (user_load_by_name($fetched_user) === FALSE) {
+      form_set_error('boiler_varibale', t('You must enter a valid user.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_init()
+ */
+function boiler_init() {
+
+  // Stuff that happens on every module load.
+
+} // hook_init()
+
+/**
+ * Example form alter of a content type (blog)
+ */
+function boiler_form_blog_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['title']['#description'] = '<p>Your HTML alter here.</p>';
+}
+
+/**
+ * Example form alter of a content type (calendar_event)
+ */
+function boiler_form_calendar_event_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['title']['#description'] = '<p>Your HTML alter here.</p>';
+}
+
+/**
+ * Implements hook_cron()
+ */
+function boiler_cron() {
+  $msg = 'Cron ran the Boiler Module functions.'; 
+  watchdog('boiler', $msg, NULL, WATCHDOG_INFO); // This just prints a message to log on cron() run. 
+  // You can do other stuff here :) 
+}
