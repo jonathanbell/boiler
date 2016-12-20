@@ -10,4 +10,4 @@ Install as usual.
 2. Change folder name and all function names and file names to the name of your module.
 3. Get started coding, and enable your new module.
 
- 
+ For examples galore, checkout: [https://www.drupal.org/project/examples](https://www.drupal.org/project/examples)
