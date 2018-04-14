@@ -2,9 +2,9 @@
 
 /**
  * @file(boiler.module)
- * NOTE: This is an example module with code ideas and tricks to be used as a
- * boilerplate codebase for starting your own modules in Drupal 7. Do not 
- * this module on its own. 
+ * NOTE: This is an example module with code ideas and tricks and tricks to be
+ * used as a boilerplate codebase for starting your own modules in Drupal 7.
+ * Do not use this module on its own.
  */
 
 /**
@@ -24,7 +24,7 @@ function boiler_permission() {
  */
 function boiler_menu() {
   return array (
-    // the admin config page for the module
+    // The admin config page for the module.
     'admin/config/boiler' => array (
       'title' => t('boiler'),
       'description' => t('Administer the Boiler Module'),
@@ -36,12 +36,12 @@ function boiler_menu() {
 } // hook_menu()
 
 /**
- * An example helper function that can be called from other functions. 
- * @return bool Returns true all the time.
+ * An example helper function that can be called from other functions.
+ * @return bool Returns true all the time because it's just an example.
  */
 function _example_helper_function() {
 
-  // Your PHP stuff here... 
+  // Your code here...
 
   return TRUE;
 
@@ -49,7 +49,7 @@ function _example_helper_function() {
 
 /**
  * Implements hook_form()
- * The admin form in Drupal admin area. 
+ * The admin form in the Drupal 7 admin area.
  */
 function boiler_admin_settings_form($node, &$form_state) {
 
@@ -81,6 +81,7 @@ function boiler_admin_settings_form($node, &$form_state) {
  * Validates some of the form values.
  */
 function boiler_admin_settings_form_validate($form, &$form_state) {
+  // This is just an example of a form validation.
   $get_users = explode(',', str_replace(' ', '', $form_state['values']['boiler_varibale']));
   foreach($get_users as $fetched_user) {
     if (user_load_by_name($fetched_user) === FALSE) {
@@ -99,14 +100,15 @@ function boiler_init() {
 } // hook_init()
 
 /**
- * Example form alter of a content type (blog)
+ * Example form alter.
+ * In this case, we are altering the form that creates a blog node.
  */
 function boiler_form_blog_node_form_alter(&$form, &$form_state, $form_id) {
   $form['title']['#description'] = '<p>Your HTML alter here.</p>';
 }
 
 /**
- * Example form alter of a content type (calendar_event)
+ * Example form alter of a content type (in this case a `calendar_event`)
  */
 function boiler_form_calendar_event_node_form_alter(&$form, &$form_state, $form_id) {
   $form['title']['#description'] = '<p>Your HTML alter here.</p>';
@@ -116,7 +118,11 @@ function boiler_form_calendar_event_node_form_alter(&$form, &$form_state, $form_
  * Implements hook_cron()
  */
 function boiler_cron() {
-  $msg = 'Cron ran the Boiler Module functions.'; 
-  watchdog('boiler', $msg, NULL, WATCHDOG_INFO); // This just prints a message to log on cron() run. 
-  // You can do other stuff here :) 
+
+  $msg = 'Cron ran the Boiler Module functions.';
+  // This just prints a message to the log on cron() run.
+  watchdog('boiler', $msg, NULL, WATCHDOG_INFO);
+
+  // Your code here...
+
 }
